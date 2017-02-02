@@ -1,0 +1,7 @@
+# Obvio no vamos a cargar bases de datos
+
+*.db
+
+# Tampoco necesitamos los .zip
+
+*.zip
