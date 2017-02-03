@@ -8,8 +8,6 @@ zip 00000000.export.CSV.zip headers.csv && mv 00000000.export.CSV.zip ./archivos
 
 parallel gunzip -c ::: $(ls ./archivos/*.export.CSV.zip) | awk '($2=="SQLDATE" || $8=="MEX" || $18=="MEX")  {print}' | tee salida.txt | csvsql --db sqlite:///gdelt.db --table mexico --insert -t 
 
-
-
 awk -F "\t" '($57!="DATEADDED"){a[$57]+=$31;b[$57]+=1}END{for(i in a) print i "\t" b[i] "\t" a[i]}' salida.txt >> gs.txt && sed -i "1iDate \t NumberOfOcurrences \t GoldsteinScale" gs.txt && cat gs.txt |  csvsql --db sqlite:///gdelt.db --table mexico_ts --insert -t
 
-rm fechas.txt
+rm fechas.txt salida.txt gs.txt
