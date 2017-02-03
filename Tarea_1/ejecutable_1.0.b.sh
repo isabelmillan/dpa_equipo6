@@ -4,9 +4,10 @@ d=; n=0; until [ "$d" = "20161201" ]; do ((n++)); d=$(date -d "today - $n days" 
 
 [ -d ./archivos ] || cat fechas.txt | parallel -j0 wget http://data.gdeltproject.org/events/\{\} -P ./archivos
 
+touch noticias.csv
 cat headers.csv > noticias.csv
 
-ls ./archivos/*.export.CSV.zip | parallel gunzip -c {} | awk '($8=="MEX" || $18=="MEX")  {print}' >> noticias.csv
+ls ./archivos/*.export.CSV.zip | parallel gunzip -c {} | awk '($2=="SQLDATE" || $8=="MEX" || $18=="MEX")  {print}' >> noticias.csv
 
 csvsql --db sqlite:///gdelt.db --table mexico --insert -t noticias.csv
 
