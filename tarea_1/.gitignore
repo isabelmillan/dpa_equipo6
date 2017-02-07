@@ -2,3 +2,4 @@
 *.zip
 *.CSV
 *.txt
+.ipynb_checkpoints
